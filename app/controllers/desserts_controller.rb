@@ -1,10 +1,9 @@
 class DessertsController < ApplicationController
-  before_action :set_dessert, only: [:show, :update, :destroy]
+  before_action :find_dessert, only: [:show, :update, :destroy]
 
   # GET /desserts
   def index
     @desserts = Dessert.all
-
     render json: @desserts
   end
 
@@ -18,7 +17,7 @@ class DessertsController < ApplicationController
     @dessert = Dessert.new(dessert_params)
 
     if @dessert.save
-      render json: @dessert, status: :created, location: @dessert
+      render json: @dessert, status: :created
     else
       render json: @dessert.errors, status: :unprocessable_entity
     end
@@ -40,7 +39,7 @@ class DessertsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_dessert
+    def find_dessert
       @dessert = Dessert.find(params[:id])
     end
 
